@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-static inline int	format(t_printf *x)
+static int	format(t_printf *x)
 {
 	if (x->f == 'c')
 		return (writechar(va_arg(x->args, int), x));
