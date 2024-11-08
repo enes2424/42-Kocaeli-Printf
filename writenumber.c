@@ -84,7 +84,7 @@ int	writehex(unsigned long n, t_printf *x)
 
 int	writepoint(void *n, t_printf *x)
 {
-	int					arr[16];
+	int					arr[32];
 	int					i;
 	unsigned long long	nb;
 
