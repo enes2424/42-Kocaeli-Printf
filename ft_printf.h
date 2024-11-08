@@ -12,7 +12,11 @@
 
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
-
+# if defined(__APPLE__)
+#  define LOCATION 1
+# elif defined(__linux__)
+#  define LOCATION 2
+# endif
 # include <stdarg.h>
 # include <stdint.h>
 

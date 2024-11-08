@@ -14,6 +14,8 @@
 
 static int	format(t_printf *x)
 {
+	void	*ptr;
+
 	if (x->f == 'c')
 		return (writechar(va_arg(x->args, int), x));
 	if (x->f == 's')
@@ -23,7 +25,12 @@ static int	format(t_printf *x)
 	if (x->f == 'u')
 		return (writeuint(va_arg(x->args, unsigned int), x));
 	if (x->f == 'p')
-		return (writepoint(va_arg(x->args, void *), x));
+	{
+		ptr = va_arg(x->args, void *);
+		if (!ptr && LOCATION == 2)
+			return (writestring("(nil)", x));
+		return (writepoint(ptr, x));
+	}
 	if (x->f == 'x' || x->f == 'X')
 		return (writehex(va_arg(x->args, unsigned int), x));
 	if (x->f == '%')
