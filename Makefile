@@ -5,13 +5,15 @@ SRC = 	ft_printf.c \
 		writestring.c \
 		writenumber.c
 
-OBJ = *.o
+OBJ = $(SRC:.c=.o)
 
 all: $(NAME)
 
-$(NAME):
-	@cc -Wall -Wextra -Werror -c $(SRC)
+$(NAME): $(OBJ)
 	@ar rc $(NAME) $(OBJ)
+
+%.o: %.c
+	@cc -Wall -Wextra -Werror -c $< -o $@
 
 clean:
 	@$(RM) $(OBJ)
