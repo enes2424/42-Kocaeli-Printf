@@ -16,17 +16,17 @@ static int	format(t_printf *x)
 {
 	if (x->f == 'c')
 		return (writechar(va_arg(x->args, int), x));
-	else if (x->f == 's')
+	if (x->f == 's')
 		return (writestring(va_arg(x->args, char *), x));
-	else if (x->f == 'd' || x->f == 'i')
+	if (x->f == 'd' || x->f == 'i')
 		return (writeint(va_arg(x->args, int), x));
-	else if (x->f == 'u')
+	if (x->f == 'u')
 		return (writeuint(va_arg(x->args, unsigned int), x));
-	else if (x->f == 'p')
+	if (x->f == 'p')
 		return (writepoint(va_arg(x->args, void *), x));
-	else if (x->f == 'x' || x->f == 'X')
+	if (x->f == 'x' || x->f == 'X')
 		return (writehex(va_arg(x->args, unsigned int), x));
-	else if (x->f == '%')
+	if (x->f == '%')
 		return (writechar('%', x));
 	return (-1);
 }
