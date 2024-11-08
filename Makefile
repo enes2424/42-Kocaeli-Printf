@@ -12,7 +12,7 @@ $(NAME): $(OBJ)
 	@ar rc $(NAME) $(OBJ)
 
 %.o: %.c
-	@cc -Wall -Wextra -Werror -c $(SRC)
+	cc -Wall -Wextra -Werror -c $< -o $@
 
 clean:
 	@rm -rf $(OBJ)
