@@ -37,16 +37,17 @@ int	ft_printf(const char *s, ...)
 
 	x.len = 0;
 	va_start(x.args, s);
-	while (*s++)
+	while (*s)
 	{
-		if (*(s - 1) == '%')
+		if (*s == '%')
 		{
-			x.f = *s++;
+			x.f = *++s;
 			if (format(&x) == -1)
 				return (va_end(x.args), -1);
 		}
-		else if (writechar(*(s - 1), &x) == -1)
+		else if (writechar(*s, &x) == -1)
 			return (va_end(x.args), -1);
+		s++;
 	}
 	return (va_end(x.args), x.len);
 }
