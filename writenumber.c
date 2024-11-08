@@ -12,19 +12,19 @@
 
 #include "ft_printf.h"
 
-int	writeint(int n, t_printf *x)
+int	writeint(int n, int *len)
 {
 	char	arr[10];
 	int		i;
 
 	i = 0;
 	if (!n)
-		return (writechar('0', x));
+		return (writechar('0', len));
 	if (n == -2147483648)
-		return (writestring("-2147483648", x));
+		return (writestring("-2147483648", len));
 	if (n < 0)
 	{
-		if (writechar('-', x) == -1)
+		if (writechar('-', len) == -1)
 			return (-1);
 		n = -n;
 	}
@@ -34,31 +34,31 @@ int	writeint(int n, t_printf *x)
 		n /= 10;
 	}
 	while (i--)
-		if (writechar(arr[i], x) == -1)
+		if (writechar(arr[i], len) == -1)
 			return (-1);
 	return (1);
 }
 
-int	writeuint(unsigned long n, t_printf *x)
+int	writeuint(unsigned long n, int *len)
 {
 	int		arr[16];
 	int		i;
 
 	i = 0;
 	if (!n)
-		return (writechar('0', x));
+		return (writechar('0', len));
 	while (n)
 	{
 		arr[i++] = DECIMAL[n % 10];
 		n /= 10;
 	}
 	while (i--)
-		if (writechar(arr[i], x) == -1)
+		if (writechar(arr[i], len) == -1)
 			return (-1);
 	return (1);
 }
 
-int	writehex(unsigned long n, t_printf *x)
+int	writehex(unsigned long n, char c, int *len)
 {
 	char	arr[16];
 	int		i;
@@ -67,7 +67,7 @@ int	writehex(unsigned long n, t_printf *x)
 	i = 0;
 	if (!n)
 		arr[i++] = '0';
-	if (x->f == 'x')
+	if (c == 'x')
 		hex = HEXALOW;
 	else
 		hex = HEXAUP;
@@ -77,12 +77,12 @@ int	writehex(unsigned long n, t_printf *x)
 		n /= 16;
 	}
 	while (i--)
-		if (writechar(arr[i], x) == -1)
+		if (writechar(arr[i], len) == -1)
 			return (-1);
 	return (1);
 }
 
-int	writepoint(void *n, t_printf *x)
+int	writepoint(void *n, int *len)
 {
 	char				arr[32];
 	int					i;
@@ -90,17 +90,17 @@ int	writepoint(void *n, t_printf *x)
 
 	i = 0;
 	nb = (unsigned long long)n;
-	if (writestring("0x", x) == -1)
+	if (writestring("0x", len) == -1)
 		return (-1);
 	if (!nb)
-		return (writechar('0', x));
+		return (writechar('0', len));
 	while (nb)
 	{
 		arr[i++] = HEXALOW[nb % 16];
 		nb /= 16;
 	}
 	while (i--)
-		if (writechar(arr[i], x) == -1)
+		if (writechar(arr[i], len) == -1)
 			return (-1);
 	return (1);
 }

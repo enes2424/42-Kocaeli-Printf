@@ -13,17 +13,17 @@
 #include "ft_printf.h"
 #include <unistd.h>
 
-int	writechar(char c, t_printf *x)
+int	writechar(char c, int *len)
 {
-	return (x->len++, write(1, &c, 1));
+	return ((*len)++, write(1, &c, 1));
 }
 
-int	writestring(char *s, t_printf *x)
+int	writestring(char *s, int *len)
 {
 	if (!s)
 		s = "(null)";
 	while (*s)
-		if (writechar(*s++, x) == -1)
+		if (writechar(*s++, len) == -1)
 			return (-1);
 	return (1);
 }

@@ -12,49 +12,49 @@
 
 #include "ft_printf.h"
 
-static int	format(t_printf *x)
+static int	format(va_list *args, char c, int *len)
 {
 	void	*ptr;
 
-	if (x->f == 'c')
-		return (writechar(va_arg(x->args, int), x));
-	if (x->f == 's')
-		return (writestring(va_arg(x->args, char *), x));
-	if (x->f == 'd' || x->f == 'i')
-		return (writeint(va_arg(x->args, int), x));
-	if (x->f == 'u')
-		return (writeuint(va_arg(x->args, unsigned int), x));
-	if (x->f == 'p')
+	if (c == 'c')
+		return (writechar(va_arg(*args, int), len));
+	if (c == 's')
+		return (writestring(va_arg(*args, char *), len));
+	if (c == 'd' || c == 'i')
+		return (writeint(va_arg(*args, int), len));
+	if (c == 'u')
+		return (writeuint(va_arg(*args, unsigned int), len));
+	if (c == 'p')
 	{
-		ptr = va_arg(x->args, void *);
+		ptr = va_arg(*args, void *);
 		if (!ptr && LOCATION == 2)
-			return (writestring("(nil)", x));
-		return (writepoint(ptr, x));
+			return (writestring("(nil)", len));
+		return (writepoint(ptr, len));
 	}
-	if (x->f == 'x' || x->f == 'X')
-		return (writehex(va_arg(x->args, unsigned int), x));
-	if (x->f == '%')
-		return (writechar('%', x));
+	if (c == 'x' || c == 'X')
+		return (writehex(va_arg(*args, unsigned int), c, len));
+	if (c == '%')
+		return (writechar('%', len));
 	return (-1);
 }
 
 int	ft_printf(const char *s, ...)
 {
-	t_printf	x;
+	va_list		args;
+	int			len;
 
-	x.len = 0;
-	va_start(x.args, s);
+	len = 0;
+	va_start(args, s);
 	while (*s)
 	{
 		if (*s == '%')
 		{
-			x.f = *++s;
-			if (format(&x) == -1)
-				return (va_end(x.args), -1);
+			if (format(&args, *++s, &len) == -1)
+				return (va_end(args), -1);
 		}
-		else if (writechar(*s, &x) == -1)
-			return (va_end(x.args), -1);
+		else if (writechar(*s, &len) == -1)
+			return (va_end(args), -1);
 		s++;
 	}
-	return (va_end(x.args), x.len);
+	return (va_end(args), len);
 }

@@ -24,19 +24,12 @@
 # define HEXALOW "0123456789abcdef"
 # define HEXAUP "0123456789ABCDEF"
 
-typedef struct s_printf
-{
-	va_list		args;
-	char		f;
-	int			len;
-}		t_printf;
-
-int		writechar(char c, t_printf *x);
-int		writestring(char *s, t_printf *x);
-int		writeint(int n, t_printf *x);
-int		writeuint(unsigned long n, t_printf *x);
-int		writepoint(void *n, t_printf *x);
-int		writehex(unsigned long n, t_printf *x);
+int		writechar(char c, int *len);
+int		writestring(char *s, int *len);
+int		writeint(int n, int *len);
+int		writeuint(unsigned long n, int *len);
+int		writepoint(void *n, int *len);
+int		writehex(unsigned long n, char c, int *len);
 int		ft_printf(const char *s, ...);
 
 #endif
