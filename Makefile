@@ -1,7 +1,6 @@
 NAME = libftprintf.a
-RM = rm -rf
 
-SRC = 	ft_printf.c \
+SRC =	ft_printf.c \
 		writestring.c \
 		writenumber.c
 
@@ -13,13 +12,13 @@ $(NAME): $(OBJ)
 	@ar rc $(NAME) $(OBJ)
 
 %.o: %.c
-	@cc -Wall -Wextra -Werror -c $< -o $@
+	@cc -Wall -Wextra -Werror -c $(SRC)
 
 clean:
-	@$(RM) $(OBJ)
+	@rm -rf $(OBJ)
 
 fclean : clean
-	@$(RM) $(NAME)
+	@rm -rf $(NAME)
 
 re: fclean all
 
