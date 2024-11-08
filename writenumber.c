@@ -85,12 +85,10 @@ int	writehex(unsigned long n, t_printf *x)
 int	writepoint(void *n, t_printf *x)
 {
 	int					arr[16];
-	char				*hex;
 	int					i;
 	unsigned long long	nb;
 
 	i = 0;
-	hex = HEXALOW;
 	nb = (unsigned long long)n;
 	if (writestring("0x", x) == -1)
 		return (-1);
@@ -102,7 +100,7 @@ int	writepoint(void *n, t_printf *x)
 		nb /= 16;
 	}
 	while (i--)
-		if (writechar(hex[arr[i]], x) == -1)
+		if (writechar(HEXALOW[arr[i]], x) == -1)
 			return (-1);
 	return (1);
 }
