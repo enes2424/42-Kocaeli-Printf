@@ -82,14 +82,16 @@ int	writehex(unsigned long n, char c, int *len)
 	return (1);
 }
 
-int	writepoint(void *n, int *len)
+int	writepoint(void *ptr, int *len)
 {
 	char				arr[32];
 	int					i;
 	unsigned long long	nb;
 
+	if (LOCATION == 2 && !ptr)
+		return (writestring("(nil)", len));
 	i = 0;
-	nb = (unsigned long long)n;
+	nb = (unsigned long long)ptr;
 	if (writestring("0x", len) == -1)
 		return (-1);
 	if (!nb)

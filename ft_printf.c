@@ -14,8 +14,6 @@
 
 static int	format(va_list *args, char c, int *len)
 {
-	void	*ptr;
-
 	if (c == 'c')
 		return (writechar(va_arg(*args, int), len));
 	if (c == 's')
@@ -25,12 +23,7 @@ static int	format(va_list *args, char c, int *len)
 	if (c == 'u')
 		return (writeuint(va_arg(*args, unsigned int), len));
 	if (c == 'p')
-	{
-		ptr = va_arg(*args, void *);
-		if (!ptr && LOCATION == 2)
-			return (writestring("(nil)", len));
-		return (writepoint(ptr, len));
-	}
+		return (writepoint(va_arg(*args, void *), len));
 	if (c == 'x' || c == 'X')
 		return (writehex(va_arg(*args, unsigned int), c, len));
 	if (c == '%')
@@ -43,6 +36,8 @@ int	ft_printf(const char *s, ...)
 	va_list		args;
 	int			len;
 
+	if (LOCATION == 2 && !s)
+		return (-1);
 	len = 0;
 	va_start(args, s);
 	while (*s)
