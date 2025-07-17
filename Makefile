@@ -9,18 +9,18 @@ OBJ = $(SRC:.c=.o)
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	@ar rc $(NAME) $(OBJ)
+	ar rc $(NAME) $(OBJ)
 
 $(OBJ): ft_printf.h
 
 %.o: %.c
-	@cc -Wall -Wextra -Werror -c $< -o $@
+	cc -Wall -Wextra -Werror -c $< -o $@
 
 clean:
-	@rm -rf $(OBJ)
+	rm -rf $(OBJ)
 
 fclean : clean
-	@rm -rf $(NAME)
+	rm -rf $(NAME)
 
 re: fclean all
 
